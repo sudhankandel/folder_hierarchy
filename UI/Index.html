@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folder Test</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="orchid_logo.png" alt="Orchid International College Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">HOME</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="download-section">
+            <h2>About Download Section:</h2>
+            <p>This page contains different download items that include old question papers, syllabuses, solutions, notes, and more.</p>
+            <p>If you find something missing or need an update, please contact us.</p>
+
+            <ul class="download-links">
+                <!-- Main Folder -->
+                <li>
+                    <span class="icon-container">
+                        <span class="folder-icon" id="folder-icon-1">
+                            <i class="fas fa-folder"></i>
+                        </span>
+                        <span class="spinner-icon" id="spinner-icon-1">
+                            <i class="fas fa-spinner"></i>
+                        </span>
+                    </span>
+                    <a href="#" onclick="toggleSubMenu(event, 'folder-1'); return false;">Folder 1</a>
+                    <ul class="sub-menu" id="folder-1">
+                        <!-- Subfolder inside Folder 1 -->
+                        <li>
+                            <span class="dash"></span>
+                            <span class="icon-container">
+                                <span class="folder-icon" id="folder-icon-1-1">
+                                    <i class="fas fa-folder"></i>
+                                </span>
+                                <span class="spinner-icon" id="spinner-icon-1-1">
+                                    <i class="fas fa-spinner"></i>
+                                </span>
+                            </span>
+                            <a href="#" onclick="toggleSubMenu(event, 'folder-1-1'); return false;">Subfolder 1.1</a>
+                            <ul class="sub-menu" id="folder-1-1">
+                                <li><i class="fas fa-file-alt"></i> File 1.1A.docx</li>
+                                <li><i class="fas fa-file-alt"></i> File 1.1B.docx</li>
+                            </ul>
+                        </li>
+                        <!-- File directly inside Folder 1 -->
+                        <li><i class="fas fa-file-alt"></i> File 1A.docx</li>
+                    </ul>
+                </li>
+                <!-- Another Main Folder -->
+                <li>
+                    <span class="icon-container">
+                        <span class="folder-icon" id="folder-icon-2">
+                            <i class="fas fa-folder"></i>
+                        </span>
+                        <span class="spinner-icon" id="spinner-icon-2">
+                            <i class="fas fa-spinner"></i>
+                        </span>
+                    </span>
+                    <a href="#" onclick="toggleSubMenu(event, 'folder-2'); return false;">Folder 2</a>
+                    <ul class="sub-menu" id="folder-2">
+                        <li><i class="fas fa-file-alt"></i> File 2A.docx</li>
+                        <li><i class="fas fa-file-alt"></i> File 2B.docx</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Last Updated On: Sep 04, 2024</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

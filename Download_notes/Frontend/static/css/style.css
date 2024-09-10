@@ -1,0 +1,91 @@
+
+
+.download-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.download-links {
+    list-style: none;
+    padding: 0;
+}
+
+.download-links li {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+/* Folder and file icons */
+.icon-container {
+    display: inline-flex;
+    align-items: center;
+}
+
+.folder-icon {
+    font-size: 30px;
+    color: #3498db;
+    margin-right: 8px;
+    transition: color 0.3s ease;
+}
+
+.folder-icon:hover {
+    color: #1d78c1;
+}
+
+.spinner-icon {
+    font-size: 16px;
+    color: #3498db;
+    margin-right: 8px;
+    display: none;
+    animation: spin 0.7s linear infinite;
+}
+
+.sub-menu {
+    list-style: none;
+    padding-left: 20px;
+    display: none;
+}
+
+.sub-menu li {
+    margin-bottom: 5px;
+}
+
+.sub-menu a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.sub-menu a:hover {
+    color: #0056b3;
+}
+
+/* Footer styles */
+footer {
+    padding: 10px;
+    background-color: #f8f8f8;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
+
+/* Loading spinner styles */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(360deg); }
+}
+
+
+.custom-dark-blue {
+    background-color: #063b6c;  /* Set custom dark blue color */
+    height: 120px;  /* Set height to double the default header size */
+    display: flex;  /* Flexbox for centering content */
+    align-items: center;  /* Vertically center the content */
+    justify-content: center;  
+}
+
+.custom-dark-blue-footer {
+    background-color: #063b6c;  /* Set custom dark blue color */
+    height: 60px;  /* Set height to double the default header size */
+}
