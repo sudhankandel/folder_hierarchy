@@ -29,10 +29,8 @@
             <hr class="my-4">
 
             <ul class="download-links">
-                {% for category, departments in uploads_by_category.items %}
-                
-                    {% if departments %}
-                    
+                {% for category, data in uploads_by_category.items %}
+                    {% if data %}
                         <li>
                             <span class="icon-container">
                                 <span class="folder-icon">
@@ -44,8 +42,9 @@
                             </span>
                             <a href="#" onclick="toggleSubMenu(event, '{{ category|slugify }}'); return false;">{{ category }}</a>
                             <ul class="sub-menu" id="{{ category|slugify }}">
-                                {% for department, years in departments.items %}
-                                    {% if years %}
+                                {% for department, semesters in data.items %}
+                                    {% if department %}
+                                    
                                         <li>
                                             <span class="icon-container">
                                                 <span class="folder-icon">
@@ -55,10 +54,12 @@
                                                     <i class="fas fa-spinner"></i>
                                                 </span>
                                             </span>
-                                            <a href="#" onclick="toggleSubMenu(event, '{{ category|slugify }}-{{ department|slugify }}'); return false;">{{ department }}</a>
+
+                                            <a href="#" onclick="toggleSubMenu(event, '{{ category|slugify }}-{{ department|slugify }}'); return false;"> {{ department }}</a>
                                             <ul class="sub-menu" id="{{ category|slugify }}-{{ department|slugify }}">
-                                                {% for year, colleges in years.items %}
-                                                    {% if colleges %}
+
+                                                {% for semester, years in semesters.items %}
+                                                    {% if semester %}
                                                         <li>
                                                             <span class="icon-container">
                                                                 <span class="folder-icon">
@@ -68,10 +69,12 @@
                                                                     <i class="fas fa-spinner"></i>
                                                                 </span>
                                                             </span>
-                                                            <a href="#" onclick="toggleSubMenu(event, '{{ category|slugify }}-{{ department|slugify }}-{{ year }}'); return false;">{{ year }}</a>
-                                                            <ul class="sub-menu" id="{{ category|slugify }}-{{ department|slugify }}-{{ year }}">
-                                                                {% for college_or_university, files in colleges.items %}
-                                                                    {% if files %}
+                                                            <a href="#" onclick="toggleSubMenu(event, '{{ category|slugify }}-{{ department|slugify }}-{{ semester }}'); return false;">{{ semester }} Sem</a>
+                                                            <ul class="sub-menu" id="{{ category|slugify }}-{{ department|slugify }}-{{ semester }}">
+
+                                                                {% for year, colleges in years.items %}
+                                                                    {% if year %}
+
                                                                         <li>
                                                                             <span class="icon-container">
                                                                                 <span class="folder-icon">
@@ -81,33 +84,68 @@
                                                                                     <i class="fas fa-spinner"></i>
                                                                                 </span>
                                                                             </span>
-                                                                            <a href="#" onclick="toggleSubMenu(event, '{{ category|slugify }}-{{ department|slugify }}-{{ year }}-{{ college_or_university|slugify }}'); return false;">{{ college_or_university }}</a>
-                                                                            <ul class="sub-menu" id="{{ category|slugify }}-{{ department|slugify }}-{{ year }}-{{ college_or_university|slugify }}">
-                                                                                {% for file in files %}
-                                                                                    <li><i class="fas fa-file-alt"></i> <a href="{{ file.pdf_file.url }}">{{ file.pdf_file.name }}</a></li>
+                                                                            <a href="#" onclick="toggleSubMenu(event, '{{ category|slugify }}-{{ department|slugify }}-{{ semester|slugify }}-{{year}}'); return false;">{{ year }}</a>
+                                                                            <ul class="sub-menu" id="{{ category|slugify }}-{{ department|slugify }}-{{ semester|slugify }}-{{year}}">
+
+                                                                                {% for college_or_university, files in colleges.items %}
+                                                                                    {% if files %}
+                                                                                        <li>
+                                                                                            <span class="icon-container">
+                                                                                                <span class="folder-icon">
+                                                                                                    <i class="fas fa-folder"></i>
+                                                                                                </span>
+                                                                                                <span class="spinner-icon">
+                                                                                                    <i class="fas fa-spinner"></i>
+                                                                                                </span>
+                                                                                            </span>
+                                                                                            <a href="#" onclick="toggleSubMenu(event, '{{ category|slugify }}-{{ department|slugify }}-{{ year }}-{{ college_or_university|slugify }}'); return false;">{{ college_or_university }}</a>
+                                                                                            <ul class="sub-menu" id="{{ category|slugify }}-{{ department|slugify }}-{{ year }}-{{ college_or_university|slugify }}">
+                                                                                                {% for file in files %}
+                                                                                                    <li><i class="fas fa-file-alt"></i> <a href="{{ file.file_url }}">{{ file.file_name }}</a></li>
+                                                                                                {% empty %}
+                                                                                                    <li>No files available.</li>
+                                                                                                {% endfor %}
+                                                                                            </ul>
+                                                                                        </li>
+                                                                                    {% endif %}
                                                                                 {% empty %}
-                                                                                    <li>No files available.</li>
+                                                                                    {% for file in colleges.files %}
+                                                                                        <li><i class="fas fa-file-alt"></i> <a href="{{ file.pdf_file.url }}">{{ file.pdf_file.name }}</a></li>
+                                                                                    {% empty %}
+                                                                                        <li>No files available for this year.</li>
+                                                                                    {% endfor %}
                                                                                 {% endfor %}
-                                                                            </ul>
-                                                                        </li>
-                                                                    {% endif %}
-                                                                {% empty %}
-                                                                    {% for file in colleges.files %}
-                                                                        <li><i class="fas fa-file-alt"></i> <a href="{{ file.pdf_file.url }}">{{ file.pdf_file.name }}</a></li>
-                                                                    {% empty %}
-                                                                        <li>No files available for this year.</li>
-                                                                    {% endfor %}
-                                                                {% endfor %}
+                                                                        </ul>
+                                                                    </li>
+                                                                    {%else%}
+                                                                        {% for year, colleges in years.items %}
+                                                                            {%for i in colleges.files%}
+                                                                            <li><i class="fas fa-file-alt"></i> <a href="{{i.file_url }}">{{ i.file_name }}</a></li>
+                                                                            {%endfor%}
+                                                                        {%endfor%}
+                                                                    {%endif%}
+                                                                {%endfor%}
                                                             </ul>
                                                         </li>
-                                                    {% endif %}
-
+                                                    {%else%}
+                                                    {% for semester, years in semesters.items %}
+                                                            {%for i in years.files%}
+                                                            <li><i class="fas fa-file-alt"></i> <a href="{{i.file_url }}">{{ i.file_name }}</a></li>
+                                                            {%endfor%}
+                                                        {%endfor%}
+                                                    {%endif%}
                                                 {% endfor %}
                                             </ul>
                                         </li>
-                                    {% endif %}
-                                {% empty %}
-                                    <li>No departments available.</li>
+                                    {%else%}
+                                    {% for semester, years in semesters.items %}
+                                        {%for i in years%}
+                                        <li><i class="fas fa-file-alt"></i> <a href="{{i.file_url }}">{{ i.file_name }}</a></li>
+                                        {%endfor%}
+                                    {%endfor%}
+                                    {%endif%}
+                                   
+
                                 {% endfor %}
                             </ul>
                         </li>
@@ -120,7 +158,7 @@
     </div>
 
     <footer class="custom-dark-blue-footer text-white text-center py-3 fixed-bottom">
-        This is a fixed footer
+        Powered by Neurovision Technology PVT Ltd.
     </footer>
 
     <script src="{% static 'js/script.js' %}"></script>
