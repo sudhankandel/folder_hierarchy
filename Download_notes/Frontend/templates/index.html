@@ -139,8 +139,9 @@
                                         </li>
                                     {%else%}
                                     {% for semester, years in semesters.items %}
-                                        {%for i in years%}
-                                        <li><i class="fas fa-file-alt"></i> <a href="{{i.file_url }}">{{ i.file_name }}</a></li>
+                                        {%for s in years.files%}
+                                        
+                                        <li><i class="fas fa-file-alt"></i> <a href="{{s.file_url }}">{{ s.file_name }}</a></li>
                                         {%endfor%}
                                     {%endfor%}
                                     {%endif%}

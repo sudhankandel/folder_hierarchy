@@ -1,3 +1,7 @@
-from django.shortcuts import render
+import os
+from django.views.generic import ListView
+from backend.models import Upload
 
-# Create your views here.
+class Display(ListView):
+    model = Upload
+    template_name = './backend/templates/index.html'
