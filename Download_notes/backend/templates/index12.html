@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic File Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">File Management System</h2>
+    
+    <!-- Dropdown for Folder Category -->
+    <div class="mb-3">
+        <label for="folderCategory" class="form-label">Select Folder Category</label>
+        <select class="form-select" id="folderCategory">
+            <option selected disabled>Select a category</option>
+            <option value="prospectus">Prospectus</option>
+            <option value="entrance">Entrance</option>
+            <option value="oldQuestion">Old Question</option>
+            <option value="syllabus">Syllabus</option>
+        </select>
+    </div>
+
+    <!-- File Upload Section for Prospectus -->
+    <div id="prospectusUpload" class="hidden">
+        <div class="mb-3">
+            <label for="prospectusFile" class="form-label">Upload Prospectus File</label>
+            <input class="form-control" type="file" id="prospectusFile">
+        </div>
+    </div>
+
+    <!-- Department Dropdown for Entrance -->
+    <div id="entranceDepartment" class="hidden">
+        <div class="mb-3">
+            <label for="entranceDept" class="form-label">Select Department</label>
+            <select class="form-select" id="entranceDept">
+                <option selected disabled>Select a department</option>
+                <option value="BIM">BIM</option>
+                <option value="BCA">BCA</option>
+                <option value="BHM">BHM</option>
+                <option value="CSIT">CSIT</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- File Upload Section for Entrance (after department selection) -->
+    <div id="entranceUpload" class="hidden">
+        <div class="mb-3">
+            <label for="entranceFile" class="form-label">Upload Entrance File</label>
+            <input class="form-control" type="file" id="entranceFile">
+        </div>
+    </div>
+
+    <!-- Department and Semester Dropdowns for Old Question -->
+    <div id="oldQuestionSection" class="hidden">
+        <div class="mb-3">
+            <label for="oldDept" class="form-label">Select Department</label>
+            <select class="form-select" id="oldDept">
+                <option selected disabled>Select a department</option>
+                <option value="BIM">BIM</option>
+                <option value="BCA">BCA</option>
+                <option value="BHM">BHM</option>
+                <option value="CSIT">CSIT</option>
+            </select>
+        </div>
+        <div id="oldSemester" class="hidden mb-3">
+            <label for="oldSem" class="form-label">Select Semester</label>
+            <select class="form-select" id="oldSem">
+                <option selected disabled>Select a semester</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+            </select>
+        </div>
+        <div id="oldYear" class="hidden mb-3">
+            <label for="year" class="form-label">Select Year</label>
+            <select class="form-select" id="year">
+                <option selected disabled>Select a year</option>
+                <!-- Generate years from 2000 to 2024 -->
+                <script>
+                    for (let year = 2000; year <= 2024; year++) {
+                        document.write(`<option value="${year}">${year}</option>`);
+                    }
+                </script>
+            </select>
+        </div>
+        <div id="oldCollegeOrUniversity" class="hidden mb-3">
+            <label for="collegeOrUniversity" class="form-label">Select Type</label>
+            <select class="form-select" id="collegeOrUniversity">
+                <option selected disabled>Select an option</option>
+                <option value="college">College</option>
+                <option value="university">University</option>
+            </select>
+        </div>
+
+        <div id="oldQuestionUpload" class="hidden mb-3">
+            <label for="oldQuestionFile" class="form-label">Upload Old Question File</label>
+            <input class="form-control" type="file" id="oldQuestionFile">
+        </div>
+    </div>
+
+    <!-- Syllabus Section with Department and Semester -->
+    <div id="syllabusSection" class="hidden">
+        <div class="mb-3">
+            <label for="syllabusDept" class="form-label">Select Department</label>
+            <select class="form-select" id="syllabusDept">
+                <option selected disabled>Select a department</option>
+                <option value="BIM">BIM</option>
+                <option value="BCA">BCA</option>
+                <option value="BHM">BHM</option>
+                <option value="CSIT">CSIT</option>
+            </select>
+        </div>
+        <div id="syllabusSemester" class="hidden mb-3">
+            <label for="syllabusSem" class="form-label">Select Semester</label>
+            <select class="form-select" id="syllabusSem">
+                <option selected disabled>Select a semester</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+                <option value="8">Semester 8</option>
+            </select>
+        </div>
+        <div id="syllabusUpload" class="hidden mb-3">
+            <label for="syllabusFile" class="form-label">Upload Syllabus File</label>
+            <input class="form-control" type="file" id="syllabusFile">
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div id="submitButton" class="hidden mb-3">
+        <button class="btn btn-primary">Submit</button>
+    </div>
+
+    <!-- JavaScript to Handle Dropdown Changes -->
+    <script>
+        document.getElementById('folderCategory').addEventListener('change', function () {
+            var selectedValue = this.value;
+
+            // Hide all sections initially
+            document.getElementById('prospectusUpload').classList.add('hidden');
+            document.getElementById('entranceDepartment').classList.add('hidden');
+            document.getElementById('entranceUpload').classList.add('hidden');
+            document.getElementById('oldQuestionSection').classList.add('hidden');
+            document.getElementById('syllabusSection').classList.add('hidden');
+            document.getElementById('submitButton').classList.add('hidden');
+
+            if (selectedValue === 'prospectus') {
+                document.getElementById('prospectusUpload').classList.remove('hidden');
+                document.getElementById('submitButton').classList.remove('hidden');
+            } else if (selectedValue === 'entrance') {
+                document.getElementById('entranceDepartment').classList.remove('hidden');
+            } else if (selectedValue === 'oldQuestion') {
+                document.getElementById('oldQuestionSection').classList.remove('hidden');
+            } else if (selectedValue === 'syllabus') {
+                document.getElementById('syllabusSection').classList.remove('hidden');
+            }
+        });
+
+        // Handle Entrance Department selection to show file upload
+        document.getElementById('entranceDept').addEventListener('change', function () {
+            document.getElementById('entranceUpload').classList.remove('hidden');
+            document.getElementById('submitButton').classList.remove('hidden');
+        });
+
+        // Handle Old Question Department and Semester
+        document.getElementById('oldDept').addEventListener('change', function () {
+            document.getElementById('oldSemester').classList.remove('hidden');
+        });
+
+        document.getElementById('oldSem').addEventListener('change', function () {
+            document.getElementById('oldYear').classList.remove('hidden');
+        });
+
+        document.getElementById('year').addEventListener('change', function () {
+            document.getElementById('oldCollegeOrUniversity').classList.remove('hidden');
+        });
+
+        document.getElementById('collegeOrUniversity').addEventListener('change', function () {
+            var selection = this.value;
+            document.getElementById('oldCollege').classList.add('hidden');
+            document.getElementById('oldUniversity').classList.add('hidden');
+
+            if (selection === 'college') {
+                document.getElementById('oldCollege').classList.remove('hidden');
+            } else if (selection === 'university') {
+                document.getElementById('oldUniversity').classList.remove('hidden');
+            }
+
+            document.getElementById('oldQuestionUpload').classList.remove('hidden');
+            document.getElementById('submitButton').classList.remove('hidden');
+        });
+
+        // Handle Syllabus Department and Semester
+        document.getElementById('syllabusDept').addEventListener('change', function () {
+            document.getElementById('syllabusSemester').classList.remove('hidden');
+        });
+
+        document.getElementById('syllabusSem').addEventListener('change', function () {
+            document.getElementById('syllabusUpload').classList.remove('hidden');
+            document.getElementById('submitButton').classList.remove('hidden');
+        });
+    </script>
+
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
