@@ -54,5 +54,4 @@ class UploadHierarchyListView(ListView):
                     'file_name': os.path.basename(upload.pdf_file.name),  # Only the file name
                     'file_url': upload.pdf_file.url  # Full URL
                 })
-        print(context)
         return context

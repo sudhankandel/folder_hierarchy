@@ -12,7 +12,7 @@ DEPARTMENT_CHOICES = [
 # Folder Category Choices
 FOLDER_CHOICES = [
     ('Entrance', 'Entrance'),
-    ('Old Questions', 'Old Questions'),
+    ('Old Question', 'Old Question'),
     ('Prospectus', 'Prospectus'),
     ('Syllabus','Syllabus'),
 ]
