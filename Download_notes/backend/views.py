@@ -2,7 +2,8 @@ import os
 from django.views.generic import ListView
 from backend.models import Upload
 import json
-
+from django.http import HttpResponseBadRequest, JsonResponse
+from django.views import View
 class Display(ListView):
     model = Upload
     template_name = 'table.html'
@@ -15,7 +16,9 @@ class Display(ListView):
         data = []
         
         for upload in uploads:
+           
             file_data = {
+                "id":upload.id,
                 "category": upload.folder_category,
                 "department": upload.department,
                 "semester": upload.semester,
@@ -29,3 +32,23 @@ class Display(ListView):
         context['file_data'] = json.dumps(data)
 
         return context
+
+
+def is_ajax(request):
+        return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+class FileDeleteView(View):
+    template_name = 'table.html'
+    def get(self, request, pk, *args, **kwargs):
+        print("This is call")
+        print(pk)
+        try:
+            # Check if the request is made via AJAX
+            if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
+                # Try to get the object and delete it
+                user = Upload.objects.get(pk=pk)
+                user.delete()
+                return JsonResponse({"message": "File deleted successfully"})
+            else:
+                return HttpResponseBadRequest("Invalid request")
+        except Upload.DoesNotExist:
+            return JsonResponse({"error": "File not found"}, status=404)
