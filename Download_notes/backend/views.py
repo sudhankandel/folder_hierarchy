@@ -1,5 +1,6 @@
 import os
 from django.views.generic import ListView
+from django.shortcuts import redirect
 from backend.models import Upload
 import json
 from django.http import HttpResponseBadRequest, JsonResponse
@@ -38,17 +39,19 @@ def is_ajax(request):
         return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 class FileDeleteView(View):
     template_name = 'table.html'
-    def get(self, request, pk, *args, **kwargs):
-        print("This is call")
-        print(pk)
-        try:
-            # Check if the request is made via AJAX
-            if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-                # Try to get the object and delete it
-                user = Upload.objects.get(pk=pk)
-                user.delete()
-                return JsonResponse({"message": "File deleted successfully"})
-            else:
-                return HttpResponseBadRequest("Invalid request")
-        except Upload.DoesNotExist:
-            return JsonResponse({"error": "File not found"}, status=404)
+    def get(self,request, pk, *args, **kwargs):
+        if is_ajax(request):
+            user = Upload.objects.get(pk=pk)
+            user.delete()
+            return JsonResponse({"message":"success"})
+        return JsonResponse({"message": "Wrong request"})
+class AddFile(View):
+     template_name='table.html'
+     def  post(self, request, *args, **kwargs):
+       if is_ajax(request):
+            print(request.POST)
+            print("Function call vayeko cha hai");
+            return JsonResponse({"message":"success"})
+       return JsonResponse({"message": "Wrong request"})
+       
+     
